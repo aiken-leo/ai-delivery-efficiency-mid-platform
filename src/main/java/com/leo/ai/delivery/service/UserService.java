@@ -1,9 +1,9 @@
 package com.leo.ai.delivery.service;
 
-import com.leo.ai.delivery.model.dto.UserQueryRequest;
+import com.leo.ai.delivery.model.dto.user.UserQueryRequest;
 import com.leo.ai.delivery.model.entity.User;
-import com.leo.ai.delivery.model.vo.LoginUserVO;
-import com.leo.ai.delivery.model.vo.UserVO;
+import com.leo.ai.delivery.model.vo.user.LoginUserVO;
+import com.leo.ai.delivery.model.vo.user.UserVO;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.service.IService;
 import jakarta.servlet.http.HttpServletRequest;

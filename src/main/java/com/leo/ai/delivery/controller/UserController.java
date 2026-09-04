@@ -1,6 +1,7 @@
 package com.leo.ai.delivery.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.leo.ai.delivery.model.dto.user.*;
 import com.mybatisflex.core.paginate.Page;
 import com.leo.ai.delivery.annotation.AuthCheck;
 import com.leo.ai.delivery.common.BaseResponse;
@@ -10,9 +11,8 @@ import com.leo.ai.delivery.constant.UserConstant;
 import com.leo.ai.delivery.exception.BusinessException;
 import com.leo.ai.delivery.exception.ErrorCode;
 import com.leo.ai.delivery.exception.ThrowUtils;
-import com.leo.ai.delivery.model.dto.*;
-import com.leo.ai.delivery.model.vo.LoginUserVO;
-import com.leo.ai.delivery.model.vo.UserVO;
+import com.leo.ai.delivery.model.vo.user.LoginUserVO;
+import com.leo.ai.delivery.model.vo.user.UserVO;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.leo.ai.delivery.model.dto;
+package com.leo.ai.delivery.model.dto.user;
 
 import lombok.Data;
 

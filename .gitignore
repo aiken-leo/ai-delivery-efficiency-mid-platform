@@ -33,3 +33,4 @@ build/
 /sql/
 /src/main/resources/application-prod.yml
 /sql/
+/tmp/

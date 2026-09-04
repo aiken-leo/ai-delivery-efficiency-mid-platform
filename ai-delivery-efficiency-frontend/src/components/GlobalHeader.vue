@@ -48,17 +48,14 @@
 </template>
 
 <script setup lang="ts">
-import {computed, h, ref} from 'vue'
+import { computed, h, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import type { MenuProps } from 'ant-design-vue'
-import { message } from 'ant-design-vue'
+import { type MenuProps, message } from 'ant-design-vue'
 import { useLoginUserStore } from '@/stores/loginUser.ts'
-import { LogoutOutlined } from '@ant-design/icons-vue'
 import { userLogout } from '@/api/userController.ts'
+import { LogoutOutlined, HomeOutlined } from '@ant-design/icons-vue'
 
-// 获取登录用户状态
 const loginUserStore = useLoginUserStore()
-
 const router = useRouter()
 // 当前选中菜单
 const selectedKeys = ref<string[]>(['/'])
@@ -71,8 +68,9 @@ router.afterEach((to, from, next) => {
 const originItems = [
   {
     key: '/',
-    label: '首页',
-    title: '首页',
+    icon: () => h(HomeOutlined),
+    label: '主页',
+    title: '主页',
   },
   {
     key: '/admin/userManage',
@@ -80,10 +78,10 @@ const originItems = [
     title: '用户管理',
   },
   {
-    key: 'others',
-    label: h('a', { href: 'https://www.xxx.cn', target: '_blank' }, 'AI平台'),
-    title: 'AI平台',
-  },
+    key: '/admin/appManage',
+    label: '应用管理',
+    title: '应用管理',
+  }
 ]
 
 // 过滤菜单项
@@ -123,7 +121,7 @@ const doLogout = async () => {
     message.success('退出登录成功')
     await router.push('/user/login')
   } else {
-    message.error('退出登录失败，' + res.data.msg)
+    message.error('退出登录失败，' + res.data.message)
   }
 }
 </script>

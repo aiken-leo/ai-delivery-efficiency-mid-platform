@@ -34,3 +34,4 @@ build/
 /src/main/resources/application-prod.yml
 /sql/
 /tmp/
+/src/main/resources/application-dev.yml

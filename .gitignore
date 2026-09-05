@@ -35,3 +35,4 @@ build/
 /sql/
 /tmp/
 /src/main/resources/application-dev.yml
+/ai-delivery-efficiency-frontend/.env.production

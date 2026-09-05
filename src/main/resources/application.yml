@@ -13,12 +13,12 @@ spring:
     username: root
     password: 123456
   # redis
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      password: 
-      ttl: 3600
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      password: 
+#      ttl: 3600
   profiles:
     active: dev
 server:

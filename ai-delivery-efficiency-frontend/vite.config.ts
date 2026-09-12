@@ -20,7 +20,7 @@ export default defineConfig({
     proxy: {
       // 所有 /api 开头的请求，转发到后端服务器
       '/api': {
-        target: 'http://127.0.0.1:8088/api',
+        target: 'http://127.0.0.1:8088',
         changeOrigin: true,
         secure: false,
       }

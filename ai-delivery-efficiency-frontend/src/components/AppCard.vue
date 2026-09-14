@@ -56,26 +56,30 @@ const handleViewWork = () => {
 
 <style scoped>
 .app-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 10px 28px rgba(79, 70, 229, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(99, 102, 241, 0.1);
   transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
   cursor: pointer;
 }
 
 .app-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  transform: translateY(-6px);
+  border-color: rgba(139, 92, 246, 0.26);
+  box-shadow: 0 16px 40px rgba(99, 102, 241, 0.16);
 }
 
 .app-preview {
-  height: 180px;
-  background: #f5f5f5;
+  height: 176px;
+  background: linear-gradient(145deg, #f8fafc, #eef2ff);
   display: flex;
   align-items: center;
   justify-content: center;

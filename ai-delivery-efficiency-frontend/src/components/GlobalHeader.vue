@@ -2,11 +2,11 @@
   <a-layout-header class="header">
     <a-row :wrap="false">
       <!-- 左侧：Logo和标题 -->
-      <a-col flex="200px">
+      <a-col flex="260px">
         <RouterLink to="/">
           <div class="header-left">
             <img class="logo" src="@/assets/logo.png" alt="Logo" />
-            <h1 class="site-title">Leo应用生成</h1>
+            <h1 class="site-title">AI 交付效率中台</h1>
           </div>
         </RouterLink>
       </a-col>
@@ -39,7 +39,7 @@
             </a-dropdown>
           </div>
           <div v-else>
-            <a-button type="primary" href="/user/login">登录</a-button>
+            <a-button type="primary" class="login-btn" href="/user/login">登录</a-button>
           </div>
         </div>
       </a-col>
@@ -128,28 +128,90 @@ const doLogout = async () => {
 
 <style scoped>
 .header {
-  background: #fff;
-  padding: 0 24px;
+  height: 64px;
+  line-height: normal;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  padding: 0 28px;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.header :deep(.ant-row) {
+  width: 100%;
+  align-items: center;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  height: 64px;
 }
 
 .logo {
-  height: 48px;
-  width: 48px;
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
 }
 
 .site-title {
   margin: 0;
-  font-size: 18px;
-  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
 }
 
 .ant-menu-horizontal {
   border-bottom: none !important;
+  background: transparent;
+  line-height: 62px;
+}
+
+.login-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  height: 36px;
+  line-height: 1 !important;
+  padding: 0 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.28);
+}
+
+.login-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #7c3aed 100%) !important;
+}
+
+.user-login-status {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+
+  .site-title {
+    max-width: 110px;
+    font-size: 13px;
+  }
 }
 </style>

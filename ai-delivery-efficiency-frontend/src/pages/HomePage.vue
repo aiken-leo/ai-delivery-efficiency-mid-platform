@@ -6,6 +6,7 @@ import { useLoginUserStore } from '@/stores/loginUser'
 import { addApp, listMyAppVoByPage, listGoodAppVoByPage } from '@/api/appController'
 import { getDeployUrl } from '@/config/env'
 import AppCard from '@/components/AppCard.vue'
+import AiDecorLayer from '@/components/AiDecorLayer.vue'
 
 const router = useRouter()
 const loginUserStore = useLoginUserStore()
@@ -158,9 +159,11 @@ onMounted(() => {
 
 <template>
   <div id="homePage">
+    <AiDecorLayer variant="home" />
     <div class="container">
       <!-- 网站标题和描述 -->
       <div class="hero-section">
+        <p class="hero-eyebrow">AI Engineering Platform</p>
         <h1 class="hero-title">AI 交付效率中台</h1>
         <p class="hero-description">一句话轻松创建网站应用</p>
       </div>
@@ -175,7 +178,13 @@ onMounted(() => {
           class="prompt-input"
         />
         <div class="input-actions">
-          <a-button type="primary" size="large" @click="createApp" :loading="creating">
+          <a-button
+            type="primary"
+            size="large"
+            class="create-btn"
+            @click="createApp"
+            :loading="creating"
+          >
             <template #icon>
               <span>↑</span>
             </template>
@@ -225,7 +234,10 @@ onMounted(() => {
 
       <!-- 我的作品 -->
       <div class="section">
-        <h2 class="section-title">我的作品</h2>
+        <div class="section-header">
+          <h2 class="section-title">我的作品</h2>
+          <span class="section-line" />
+        </div>
         <div class="app-grid">
           <AppCard
             v-for="app in myApps"
@@ -249,7 +261,10 @@ onMounted(() => {
 
       <!-- 精选案例 -->
       <div class="section">
-        <h2 class="section-title">精选案例</h2>
+        <div class="section-header">
+          <h2 class="section-title">精选案例</h2>
+          <span class="section-line" />
+        </div>
         <div class="featured-grid">
           <AppCard
             v-for="app in featuredApps"
@@ -282,74 +297,25 @@ onMounted(() => {
   padding: 0;
   min-height: 100vh;
   background:
-    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 8%, #e2e8f0 20%, #cbd5e1 100%),
-    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 40%, #eef2ff 100%),
+    radial-gradient(circle at 18% 78%, rgba(59, 130, 246, 0.12) 0%, transparent 48%),
+    radial-gradient(circle at 82% 18%, rgba(139, 92, 246, 0.11) 0%, transparent 48%);
   position: relative;
   overflow: hidden;
 }
 
-/* 科技感网格背景 */
-#homePage::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
-  background-size:
-    100px 100px,
-    100px 100px,
-    20px 20px,
-    20px 20px;
-  pointer-events: none;
-  animation: gridFloat 20s ease-in-out infinite;
-}
-
-/* 动态光效 */
+/* 鼠标跟随光效：置于装饰层之下，避免冲淡动效 */
 #homePage::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(
-      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.08) 0%,
-      rgba(139, 92, 246, 0.06) 40%,
-      transparent 80%
-    ),
-    linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.04) 50%, transparent 70%),
-    linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.04) 50%, transparent 70%);
+  inset: 0;
+  background: radial-gradient(
+    480px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(99, 102, 241, 0.05) 0%,
+    transparent 70%
+  );
   pointer-events: none;
-  animation: lightPulse 8s ease-in-out infinite alternate;
-}
-
-@keyframes gridFloat {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(5px, 5px);
-  }
-}
-
-@keyframes lightPulse {
-  0% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.7;
-  }
+  z-index: 0;
 }
 
 .container {
@@ -362,13 +328,10 @@ onMounted(() => {
   box-sizing: border-box;
 }
 
-/* 移除居中光束效果 */
-
-/* 英雄区域 */
 .hero-section {
   text-align: center;
-  padding: 80px 0 60px;
-  margin-bottom: 28px;
+  padding: 72px 0 48px;
+  margin-bottom: 20px;
   color: #1e293b;
   position: relative;
   overflow: hidden;
@@ -377,72 +340,48 @@ onMounted(() => {
 .hero-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(ellipse 800px 400px at center, rgba(59, 130, 246, 0.12) 0%, transparent 70%),
-    linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.05) 50%, transparent 70%),
-    linear-gradient(-45deg, transparent 30%, rgba(16, 185, 129, 0.04) 50%, transparent 70%);
-  animation: heroGlow 10s ease-in-out infinite alternate;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 720px 360px at center,
+    rgba(99, 102, 241, 0.08) 0%,
+    transparent 70%
+  );
 }
 
-@keyframes heroGlow {
-  0% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+.hero-eyebrow {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6366f1;
 }
 
 .hero-title {
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 700;
-  margin: 0 0 20px;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #10b981 100%);
+  margin: 0 0 14px;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #2563eb 0%, #6366f1 48%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -1px;
+  letter-spacing: -0.03em;
   position: relative;
   z-index: 2;
-  animation: titleShimmer 3s ease-in-out infinite;
-}
-
-@keyframes titleShimmer {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
 }
 
 .hero-description {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0;
-  opacity: 0.8;
   color: #64748b;
+  letter-spacing: 0.01em;
   position: relative;
   z-index: 2;
 }
 
-/* 输入区域 */
 .input-section {
   position: relative;
   margin: 0 auto 24px;
@@ -450,31 +389,47 @@ onMounted(() => {
 }
 
 .prompt-input {
-  border-radius: 16px;
-  border: none;
+  border-radius: 18px;
+  border: 1px solid rgba(99, 102, 241, 0.14);
   font-size: 16px;
-  padding: 20px 60px 20px 20px;
-  background: rgba(255, 255, 255, 0.95);
+  padding: 22px 64px 22px 22px;
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 16px 40px rgba(79, 70, 229, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.25s ease;
 }
 
 .prompt-input:focus {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 18px 48px rgba(99, 102, 241, 0.14);
+  transform: translateY(-1px);
 }
 
 .input-actions {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 14px;
+  right: 14px;
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-/* 快捷按钮 */
+.create-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.32);
+}
+
+.create-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #7c3aed 100%) !important;
+}
+
 .quick-actions {
   display: flex;
   gap: 12px;
@@ -487,8 +442,8 @@ onMounted(() => {
   border-radius: 25px;
   padding: 8px 20px;
   height: auto;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(99, 102, 241, 0.22);
   color: #475569;
   backdrop-filter: blur(15px);
   transition: all 0.3s;
@@ -503,7 +458,7 @@ onMounted(() => {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.12), transparent);
   transition: left 0.5s;
 }
 
@@ -512,26 +467,39 @@ onMounted(() => {
 }
 
 .quick-actions .ant-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(59, 130, 246, 0.4);
-  color: #3b82f6;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(139, 92, 246, 0.45);
+  color: #6366f1;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
 }
 
-/* 区域标题 */
 .section {
-  margin-bottom: 60px;
+  margin-bottom: 64px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
 .section-title {
-  font-size: 32px;
+  margin: 0;
+  font-size: 26px;
   font-weight: 600;
-  margin-bottom: 32px;
-  color: #1e293b;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  white-space: nowrap;
 }
 
-/* 我的作品网格 */
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.28), rgba(99, 102, 241, 0));
+}
+
 .app-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -539,7 +507,6 @@ onMounted(() => {
   margin-bottom: 32px;
 }
 
-/* 精选案例网格 */
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -547,14 +514,12 @@ onMounted(() => {
   margin-bottom: 32px;
 }
 
-/* 分页 */
 .pagination-wrapper {
   display: flex;
   justify-content: center;
   margin-top: 32px;
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 32px;

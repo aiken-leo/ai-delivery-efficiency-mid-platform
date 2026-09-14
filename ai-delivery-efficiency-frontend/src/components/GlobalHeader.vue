@@ -5,7 +5,7 @@
       <a-col flex="260px">
         <RouterLink to="/">
           <div class="header-left">
-            <img class="logo" src="@/assets/logo.png" alt="Logo" />
+            <img class="logo" src="@/assets/logo.svg" alt="AI 交付效率中台" />
             <h1 class="site-title">AI 交付效率中台</h1>
           </div>
         </RouterLink>
@@ -156,7 +156,8 @@ const doLogout = async () => {
 .logo {
   height: 36px;
   width: 36px;
-  border-radius: 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
 .site-title {

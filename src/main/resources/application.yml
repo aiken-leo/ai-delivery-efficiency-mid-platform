@@ -6,6 +6,13 @@ spring:
     store-type: redis
     # session 30 天过期
     timeout: 2592000
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: Redis2022!@#
+      database: 0
+      ttl: 3600 # 缓存过期时间（秒）
   # mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,6 +32,11 @@ server:
   port: 8088
   servlet:
     context-path: /api
+# 应用部署配置
+app:
+  deploy:
+    # 部署后的访问域名（不含末尾斜杠）
+    host: http://localhost
 # springdoc-openapi
 springdoc:
   group-configs:
@@ -33,7 +45,10 @@ springdoc:
       packages-to-scan: com.leo.ai.delivery.controller
 # knife4j
 knife4j:
+  # 开启增强配置（必须true，basic认证依赖增强模式）
   enable: true
+  # 生产环境开关：true=直接屏蔽文档，开发环境保持false
+  production: false
   setting:
     language: zh_cn
 # AI

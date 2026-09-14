@@ -7,6 +7,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.leo.ai.delivery.ai.AiCodeGenTypeRoutingService;
 import com.leo.ai.delivery.ai.AiCodeGenTypeRoutingServiceFactory;
+import com.leo.ai.delivery.config.AppDeployConfig;
 import com.leo.ai.delivery.constant.AppConstant;
 import com.leo.ai.delivery.core.AiCodeGeneratorFacade;
 import com.leo.ai.delivery.core.builder.VueProjectBuilder;
@@ -71,6 +72,9 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
 
     @Resource
     private AiCodeGenTypeRoutingServiceFactory aiCodeGenTypeRoutingServiceFactory;
+
+    @Resource
+    private AppDeployConfig appDeployConfig;
 
 
     @Override
@@ -175,7 +179,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
         boolean updateResult = this.updateById(updateApp);
         ThrowUtils.throwIf(!updateResult, ErrorCode.OPERATION_ERROR, "更新应用部署信息失败");
         // 10. 得到可访问的 URL 地址
-        String appDeployUrl = String.format("%s/%s", AppConstant.CODE_DEPLOY_HOST, deployKey);
+        String appDeployUrl = String.format("%s/%s", appDeployConfig.getHost(), deployKey);
         // 11. 异步生成截图并且更新应用封面
         generateAppScreenshotAsync(appId, appDeployUrl);
         return appDeployUrl;

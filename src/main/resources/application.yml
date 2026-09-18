@@ -1,10 +1,42 @@
 spring:
   application:
     name: ai-delivery-efficiency-backend
+  # session 配置
+  session:
+    store-type: redis
+    # session 30 天过期
+    timeout: 2592000
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: Redis2022!@#
+      database: 0
+      ttl: 3600 # 缓存过期时间（秒）
+  # mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ai_delivery_efficiency
+    username: root
+    password: 123456
+  # redis
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      password: 
+#      ttl: 3600
+  profiles:
+    active: dev
 server:
   port: 8088
   servlet:
     context-path: /api
+# 应用部署配置
+app:
+  deploy:
+    # 部署后的访问域名（不含末尾斜杠）
+    host: http://localhost
 # springdoc-openapi
 springdoc:
   group-configs:
@@ -13,6 +45,54 @@ springdoc:
       packages-to-scan: com.leo.ai.delivery.controller
 # knife4j
 knife4j:
+  # 开启增强配置（必须true，basic认证依赖增强模式）
   enable: true
+  # 生产环境开关：true=直接屏蔽文档，开发环境保持false
+  production: false
   setting:
     language: zh_cn
+# AI
+langchain4j:
+  open-ai:
+    chat-model:
+      base-url: https://api.deepseek.com
+      api-key: <Your API Key>
+      model-name: deepseek-chat
+      #      strict-json-schema: true
+      #      response-format: json_object
+      max-tokens: 8192
+      log-requests: true
+      log-responses: true
+      max-retries: 3
+    streaming-chat-model:
+      base-url: https://api.deepseek.com
+      api-key: <Your API Key>
+      model-name: deepseek-chat
+      max-tokens: 8192
+      log-requests: true
+      log-responses: true
+    # 推理 AI 模型配置（用于复杂的推理任务）
+    reasoning-streaming-chat-model:
+      base-url: https://api.deepseek.com
+      api-key: <Your API Key>
+      model-name: deepseek-reasoner
+      max-tokens: 32768
+      temperature: 0.1
+      log-requests: true
+      log-responses: true
+    # 智能路由 AI 模型配置（用于简单的分类任务）
+    routing-chat-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api-key: <Your API Key>
+      model-name: qwen-turbo
+      max-tokens: 100
+      log-requests: true
+      log-responses: true
+# 添加 COS 对象存储配置（需要从腾讯云获取）
+# Pexels 图片搜索配置
+pexels:
+  api-key: <Your API Key>
+# 阿里云 DashScope 配置
+dashscope:
+  api-key: <Your API Key>
+  image-model: wan2.2-t2i-flash

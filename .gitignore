@@ -30,3 +30,10 @@ build/
 
 ### VS Code ###
 .vscode/
+/sql/
+/src/main/resources/application-prod.yml
+/sql/
+/tmp/
+/src/main/resources/application-dev.yml
+/ai-delivery-efficiency-frontend/.env.production
+/logs/
